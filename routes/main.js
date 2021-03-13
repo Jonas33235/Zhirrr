@@ -10,6 +10,9 @@ router.get('/', (req, res) => {
 router.get('/about', (req, res) => {
     res.sendFile(__path + '/views/about.html')
 })
+router.get('/docs', (req, res) => {
+    res.sendFile(__path + '/views/docs.html')
+})
 
 router.get('/config', (req, res) => {
     config = {
