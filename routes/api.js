@@ -1573,7 +1573,7 @@ router.get('/textmaker/new7', async (req, res, next) => {
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput != 'apifree') return res.json(loghandler.invalidKey)
         if (!theme) return res.json(loghandler.nottheme)
-        if (theme != '8bit' && theme != 'battlefield4') return res.json(loghandler.notheme)
+        if (theme != '8bit' && theme != 'battlefield4' && theme != 'scarycemeteri' && theme != 'harrypotter') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
 
         if (theme == '8bit') {
@@ -1650,59 +1650,7 @@ router.get('/textmaker/new7', async (req, res, next) => {
         } else {
             res.json(loghandler.error)
         }
-})
-
-router.get('/textmaker/new8', async (req, res, next) => {
-        var theme = req.query.theme,
-             text = req.query.text,
-             text2 = req.query.text2,
-             text3 = req.query.text3,
-             apikeyInput = req.query.apikey;
-        
-	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput != 'apifree') return res.json(loghandler.invalidKey)
-        if (!theme) return res.json(loghandler.nottheme)
-        if (theme != 'harrypotter' && theme != 'metalic') return res.json(loghandler.notheme)
-        if (!text) return res.json(loghandler.nottext)
-
-        if (theme == 'harrypotter') {
-            try {
-            request.post({
-                url: "https://photooxy.com/logo-and-text-effects/create-harry-potter-text-on-horror-background-178.html",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `text_1=${text}&login=OK`,
-                }, (e,r,b) => {
-                    if (!e) {
-                        $ = cheerio.load(b)
-                        $(".thumbnail").find("img").each(function() {
-                            h = $(this).attr("src")
-                            var result = "https://photooxy.com/"+h
-                            fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomTextNumber}`))
-                                .then(response => response.json())
-                                .then(data => {
-                                    var urlnya = data.data.url,
-                                        delete_url = data.data.delete_url;
-                                        res.json({
-                                            status : true,
-                                            creator : `${creator}`,
-                                            message : `jangan lupa follow ${creator}`,
-                                            result:{
-                                                url:urlnya,
-                                                delete_url: delete_url,
-                                                info: 'url akan hilang setelah 2 menit'
-                                            }
-                                        })
-                                })
-                        })
-                    }
-                })
-                } catch (e) {
-                	console.log(e);
-                res.json(loghandler.error)
-                }
-        } else if (theme == 'scarycemeteri') {
+	} else if (theme == 'scarycemeteri') {
             request.post({
                 url: "https://photooxy.com/logo-and-text-effects/text-on-scary-cemetery-gate-172.html",
                 headers: {
@@ -1737,7 +1685,59 @@ router.get('/textmaker/new8', async (req, res, next) => {
         } else {
             res.json(loghandler.error)
         }
+        } else if (theme == 'harrypotter') {
+        request.post({
+                url: "https://photooxy.com/logo-and-text-effects/create-harry-potter-text-on-horror-background-178.html",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `text_1=${text}&login=OK`,
+                }, (e,r,b) => {
+                    if (!e) {
+                        $ = cheerio.load(b)
+                        $(".thumbnail").find("img").each(function() {
+                            h = $(this).attr("src")
+                            var result = "https://photooxy.com/"+h
+                            fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomTextNumber}`))
+                                .then(response => response.json())
+                                .then(data => {
+                                    var urlnya = data.data.url,
+                                        delete_url = data.data.delete_url;
+                                        res.json({
+                                            status : true,
+                                            creator : `${creator}`,
+                                            message : `jangan lupa follow ${creator}`,
+                                            result:{
+                                                url:urlnya,
+                                                delete_url: delete_url,
+                                                info: 'url akan hilang setelah 2 menit'
+                                            }
+                                        })
+                                })
+                        })
+                    }
+                })
+                } catch (e) {
+                	console.log(e);
+                res.json(loghandler.error)
+                }
 })
+
+router.get('/textmaker/new8', async (req, res, next) => {
+        var theme = req.query.theme,
+             text = req.query.text,
+             text2 = req.query.text2,
+             text3 = req.query.text3,
+             apikeyInput = req.query.apikey;
+        
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput != 'apifree') return res.json(loghandler.invalidKey)
+        if (!theme) return res.json(loghandler.nottheme)
+        if (theme != 'harrypotter' && theme != 'metalic') return res.json(loghandler.notheme)
+        if (!text) return res.json(loghandler.nottext)
+
+        if (theme == 'harrypotter') {
+            try {
 
 router.get('/textmaker/new9', async (req, res, next) => {
         var theme = req.query.theme,
