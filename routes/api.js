@@ -1723,22 +1723,6 @@ router.get('/textmaker/new7', async (req, res, next) => {
                 }
 })
 
-router.get('/textmaker/new8', async (req, res, next) => {
-        var theme = req.query.theme,
-             text = req.query.text,
-             text2 = req.query.text2,
-             text3 = req.query.text3,
-             apikeyInput = req.query.apikey;
-        
-	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput != 'apifree') return res.json(loghandler.invalidKey)
-        if (!theme) return res.json(loghandler.nottheme)
-        if (theme != 'harrypotter' && theme != 'metalic') return res.json(loghandler.notheme)
-        if (!text) return res.json(loghandler.nottext)
-
-        if (theme == 'harrypotter') {
-            try {
-
 router.get('/textmaker/new9', async (req, res, next) => {
         var theme = req.query.theme,
              text = req.query.text,
